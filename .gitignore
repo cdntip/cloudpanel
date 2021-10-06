@@ -1,0 +1,6 @@
+db.sqlite3
+migrations
+celerybeat*
+.idea
+__pycache__
+tests.py
