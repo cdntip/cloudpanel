@@ -45,7 +45,8 @@ def beat_update_azure_account():
 # 更新全部需要更新的VM
 @shared_task()
 def beat_update_azure_vm():
-    q = Q(ip='') | ~Q(status='running')
+    q = Q(ip='')
+    q.add(~Q(status='running'), Q.OR)
     data_list = models.Vm.objects.filter(q)
     print(f'需要更新的VM数量为 {data_list.count()}')
     for foo in data_list:

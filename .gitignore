@@ -4,3 +4,4 @@ celerybeat*
 .idea
 __pycache__
 tests.py
+Dockerfile

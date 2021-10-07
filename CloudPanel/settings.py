@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-s5(icgo^*dlk91xt6_k-y@-)5^9vgjm)jcstt6)^ald^yuwy)w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -174,4 +174,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CELERY
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-
+CELERY_TIMEZONE = 'Asia/Shanghai'
