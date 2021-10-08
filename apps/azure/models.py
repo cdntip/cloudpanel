@@ -160,7 +160,12 @@ class Account(models.Model):
             'OpenLogic:CentOS:7.5:latest': 'CentOS 7.5',
             'OpenLogic:CentOS:7_9:latest': 'CentOS 7.9',
             'Canonical:UbuntuServer:18.04-LTS:latest': 'Ubuntu 18.04',
+            'canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest': 'Ubuntu 20.04',
             'Debian:debian-10:10:latest': 'Debian 10',
+            'MicrosoftWindowsServer:WindowsServer:2012-Datacenter-zhcn:latest': 'Windows 2012 DC CN',
+            'MicrosoftWindowsServer:WindowsServer:2016-Datacenter-zhcn:latest': 'Windows 2016 DC CN',
+            'MicrosoftWindowsServer:WindowsServer:2019-Datacenter-smalldisk:latest': 'Windows 2019 DC',
+            'MicrosoftWindowsDesktop:Windows-10:21h1-pro:latest	': 'Windows 10 PRO',
         }
         if name in '': return _list
         return _list.get(name)
