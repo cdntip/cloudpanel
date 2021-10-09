@@ -334,7 +334,8 @@ class Images(models.Model):
     # 获取镜像名称
     @classmethod
     def get_name(cls, value):
-        if name := cls.objects.filter(value=value).first():
+        name = cls.objects.filter(value=value).first()
+        if name:
             return name
         try:
             value = value.split(':')
