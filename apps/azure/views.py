@@ -83,6 +83,7 @@ class AzureAccountView(View):
                         return JsonResponse({'code': 20000, 'message': f'{email} 账号添加成功'})
                     return JsonResponse({'code': 20002, 'message': f'{email} 账号添加失败'})
                 if models.Account.objects.filter(id=dataInfo.id).update(**_data):
+                    task_update_az.delay(data['id'])
                     return JsonResponse({'code': 20000, 'message': f'{email} 账号添加成功'})
 
                 return JsonResponse({'code': 20000, 'message': f'账号更新失败'})
@@ -150,7 +151,7 @@ class AzureVmListView(View):
                 'password': data.password,
                 'vm_size': data.vm_size,
                 'os_disk': data.os_disk,
-                'image': models.Account.image_list(data.image),
+                'image': models.Images.get_name(data.image),
                 'region': models.Account.location_list(data.location),
                 'group': data.group,
                 'status': data.status,

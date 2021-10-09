@@ -336,7 +336,7 @@ class Images(models.Model):
     def get_name(cls, value):
         name = cls.objects.filter(value=value).first()
         if name:
-            return name
+            return name.name
         try:
             value = value.split(':')
             return f'{value[1]} {value[2]}'
