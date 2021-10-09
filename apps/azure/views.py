@@ -47,7 +47,7 @@ class AzureAccountView(View):
             'message': '获取成功',
             'data': {
                 'total': data_count,
-                'image_list': models.Account.image_list(),
+                'image_list': models.Images.get_images(),
                 'location_list': models.Account.location_list(),
                 'vm_sizes': VM_SIZES,
                 'items': _data_list
@@ -259,7 +259,7 @@ class AzureVmCreateView(View):
                 'code': 20001,
                 'message': '创建失败, 异常操作!'
             })
-        message, status = account_info._creae_vm(location=region, vm_size=vm_size, password=password, vm_name=name, image=image_id)
+        message, status = account_info._creae_vm(location=region, vm_size=vm_size, password=password, vm_name=name, image=image_id, os_disk=os_disk)
         if status:
             return JsonResponse({
                 'code': 20000,

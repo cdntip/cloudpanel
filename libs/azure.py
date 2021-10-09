@@ -426,7 +426,7 @@ class AzureApi():
             print(foo['name'], foo['regionalDisplayName'], foo['displayName'])
 
     # 创建vm
-    def create_vm(self, location = 'eastasia', vm_name = 'cdntip', vm_size = 'Standard_F2s', username = 'cdntip', password='admin7788==', nic_id='', urn='OpenLogic:CentOS:7.5:latest'):
+    def create_vm(self, location = 'eastasia', vm_name = 'cdntip', vm_size = 'Standard_F2s', username = 'cdntip', password='cdntip', nic_id='', urn='OpenLogic:CentOS:7.5:latest', os_disk=64):
         try:
             urn = urn.split(':')
             url = f'https://management.azure.com/subscriptions/{self.subscriptionId}/resourceGroups/{self.group_name}/providers/Microsoft.Compute/virtualMachines/{vm_name}?api-version=2021-03-01'
@@ -450,7 +450,7 @@ class AzureApi():
                                 "storageAccountType": "Premium_LRS"
                             },
                             "name": f"{vm_name}_disk",
-                            "diskSizeGB": 64,
+                            "diskSizeGB": int(os_disk),
                             "createOption": "FromImage"
                         }
                     },

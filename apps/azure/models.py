@@ -61,7 +61,7 @@ class Account(models.Model):
         return count
 
     # 创建 VM
-    def _creae_vm(self, vm_name, vm_size, image, location='eastasia', username='azureuser', password='@RqnEy7VSf4w'):
+    def _creae_vm(self, vm_name, vm_size, image, location='eastasia', username='azureuser', password='@RqnEy7VSf4w', os_disk=64):
         try:
             # print( vm_name, vm_size, image, location)
             # 初始化 api
@@ -98,7 +98,7 @@ class Account(models.Model):
                 return '创建 公共IP 失败', False
 
             # 5, 创建虚拟机
-            if not azApi.create_vm(location=location, vm_name=vm_name, nic_id=azApi.nic_id, username=username, password=password, urn=image, vm_size=vm_size):
+            if not azApi.create_vm(location=location, vm_name=vm_name, nic_id=azApi.nic_id, username=username, password=password, urn=image, vm_size=vm_size, os_disk=os_disk):
                 return '创建 虚拟机 失败', False
 
             vm_data = {
@@ -320,4 +320,35 @@ class Vm(models.Model):
 
 # 镜像列表
 class Images(models.Model):
-    pass
+    name = models.CharField('镜像名称', max_length=50, default='', unique=True)
+    value = models.CharField('镜像值', max_length=100, help_text='格式为 OpenLogic:CentOS:7.5:latest', unique=True, default='')
+    status = models.BooleanField('是否显示', default=True)
+
+    create_time = models.DateTimeField('创建时间', null=True, auto_now_add=True)
+    update_time = models.DateTimeField('更新时间', null=True, auto_now=True)
+
+    class Meta:
+        verbose_name = '镜像管理'
+        verbose_name_plural = verbose_name
+
+    # 获取镜像名称
+    @classmethod
+    def get_name(cls, value):
+        if name := cls.objects.filter(value=value).first():
+            return name
+        try:
+            value = value.split(':')
+            return f'{value[1]} {value[2]}'
+        except:
+            return value
+
+    # 获取镜像列表
+    @classmethod
+    def get_images(cls):
+        images = {}
+        for foo in cls.objects.filter(status=True):
+            images.update({
+                foo.value: foo.name
+            })
+        return images
+
