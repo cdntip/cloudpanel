@@ -109,7 +109,7 @@ class Account(models.Model):
                 'location': location,
                 'status': 'Creating',
                 'group': azApi.group_name,
-                'os_disk': 64,
+                'os_disk': os_disk,
                 'nic_name': f'{vm_name}_nic',
                 'public_ip_name': f'{vm_name}_public_ip',
                 'username': username,
